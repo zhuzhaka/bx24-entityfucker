@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>bitrix24 obrabotka</title>
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        position: relative;
+        width: 100%;
+      }
+
+      .main__wrapper {
+        display: flex;
+        position: absolute;
+        padding: 15px;
+        margin: 15px 0;
+        border: 1px solid gray;
+        border-radius: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .main__wrapper > div {
+        margin-right: 15px;
+      }
+
+      .main__wrapper > div:last-child {
+        margin-right: 0;
+      }
+
+      .main__unit {
+        padding: 10px 0;
+      }
+
+      .control__textarea span {
+        display: block;
+        padding-bottom: 8px;
+      }
+
+      .textarea__wrapper {
+        display: flex;
+      }
+
+      .textarea__wrapper textarea {
+        display: block;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 7px 10px;
+      }
+
+      #invoke-button {
+        margin-top: 15px;
+      }
+    </style>
+    <script defer src="scripts/index.js"></script>
+  </head>
+  <body>
+    <main class="main__wrapper">
+      <div class="main__unit control__wrapper">
+        <div class="textarea__wrapper">
+          <div class="control__textarea">
+            <span>enter the data:</span>
+            <textarea id="data-textarea" rows="30" cols="40"></textarea>
+          </div>
+          <div class="control__textarea">
+            <span>log:</span>
+            <textarea id="log-textarea" readonly rows="30" cols="40"></textarea>
+          </div>
+        </div>
+        <br />
+        <div class="control__buttons">
+          <button id="parse-button">parse data</button>
+          <button id="reset-button">reset</button>
+
+          <label for="delimeter-select">col delimeter: </label>
+          <select name="delimeter" id="delimeter-select">
+            <option value="tab" selected>tab</option>
+            <option value="space">space</option>
+            <option value="comma">comma</option>
+          </select>
+          <br />
+          <button id="invoke-button" disabled>update contacts</button>
+          <label id="message-label"></label>
+        </div>
+      </div>
+
+      <div class="main__unit settings__wrapper">
+        <label for="webhook-url">paste the valid webhook url</label>
+        <input id="webhook-url" type="text" />
+      </div>
+    </main>
+  </body>
+</html>
