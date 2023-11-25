@@ -4,7 +4,7 @@ const delimeterOptions = {
   comma: ",",
 };
 
-const hookRef = "";
+let hookRef = "";
 
 let statusLabel = null;
 let logTextarea = null;
@@ -20,13 +20,17 @@ async function invoke() {
       reportStatus(
         `processing ${++currentIndex} of ${contactsGenderData.length}`
       );
-      log(`process contactId: ${contactId} ---> genderId: ${genderId}\n`);
+      log(`process contactId: ${contactId} ---> genderId: ${genderId}`);
 
       await delay(600);
 
-      fetch(
-        `${hookRef}?id=${contactId}&fields[UF_CRM_1700034619539]=${genderId}`
+      const result = await fetch(
+        `${hookRef}?id=${contactId}&fields[UF_CRM_1700034619539]=${genderId}`, {
+          method: "POST"
+        }
       );
+
+      log(result.ok ? ' - OK!\n' : ' - fail!\n');
     }
 
     reportStatus(`update complete! ${currentIndex} contacts processed`);
@@ -85,6 +89,13 @@ window.addEventListener(
     statusLabel = document.getElementById("message-label");
     logTextarea = document.getElementById("log-textarea");
     dataTextarea = document.getElementById("data-textarea");
+    hookRef = document.getElementById('webhook-url').value;
+    
+
+    this.document.getElementById('webhook-url').oninput = function(e) {
+      hookRef = e.target.value;
+      console.log(hookRef);
+    }
 
     this.document
       .getElementById("invoke-button")
